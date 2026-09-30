@@ -19,6 +19,11 @@
             margin-bottom: 40px;
         }
 
+        .post-form h3 span {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
         .post {
             border: 1px solid #ccc;
             padding: 15px;
@@ -123,21 +128,21 @@
         <form method="POST" action="/posts">
             @csrf
 
-            <h3>タイトル</h3>
+            <h3>タイトル<span>※50字以内</span></h3>
             <input type="text" name="title">
 
             @error('title')
                 <p class="error">※{{ $message }}</p>
             @enderror
 
-            <h3>投稿者名</h3>
+            <h3>投稿者名<span>※20字以内</span></h3>
             <input type="text" name="name">
             
             @error('name')
                 <p class="error">※{{ $message }}</p>
             @enderror
 
-            <h3>本文</h3>
+            <h3>本文<span>※500字以内</span></h3>
             <textarea name="body"></textarea>
 
             @error('body')
