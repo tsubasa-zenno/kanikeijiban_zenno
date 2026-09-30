@@ -13,6 +13,9 @@
         @csrf
         @method('PUT')
 
+        <h3>投稿者名</h3>
+        <input type="text" name="name" value="{{ $post->name }}">
+
         <h3>タイトル</h3>
         <input type="text" name="title" value="{{ $post->title }}">
 

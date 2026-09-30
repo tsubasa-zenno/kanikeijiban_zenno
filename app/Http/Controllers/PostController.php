@@ -18,17 +18,21 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
+            'name' => 'required',
             'body' => 'required',
         ],
         [
             'title.required' => 'タイトルを入力してください。',
-            'body.required' => '本文を入力してください。',
+            'name.required' => '名前を入力してください。',
+            'body.required' => '本文を入力してください。'
+            
         ]);
 
 
         Post::create([
         'title' => $request->title,
-        'body' => $request->body,
+        'name' => $request->name,
+        'body' => $request->body
         ]);
 
         return redirect('/posts'); 
@@ -51,16 +55,19 @@ public function update(Request $request, Post $post)
 {
     $request->validate([
         'title' => 'required',
+        'name' => 'required',
         'body' => 'required',
     ], [
         'title.required' => 'タイトルを入力してください。',
-        'body.required' => '本文を入力してください。',
+        'name.required' => '名前を入力してください。',
+        'body.required' => '本文を入力してください。'
     ]);
 
     $post->update([
         'title' => $request->title,
+        'name' => $request->name,
         'body' => $request->body,
-    ]);
+        ]);
 
     return redirect('/posts');
 }

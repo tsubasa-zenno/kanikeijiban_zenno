@@ -29,6 +29,10 @@
             margin: 5px 0;
         }
 
+        .post h4 {
+            margin: 5px 0;
+        }
+
         .error {
             color: red;
         }
@@ -60,6 +64,20 @@
 
 <body>
 
+    @error('name')
+                <p class="error">※{{ $message }}</p>
+            @enderror
+
+    @error('title')
+                <p class="error">※{{ $message }}</p>
+            @enderror
+
+    @error('body')
+                <p class="error">※{{ $message }}</p>
+            @enderror
+
+
+
     <h1>掲示板</h1>
 
     <hr>
@@ -70,13 +88,18 @@
 
         <div class="post">
 
-            <h3>#{{ $post->id }} {{ $post->title }}</h3>
+            <h3>#{{ $post->id }} {{ $post->title }} </h3>
+            <h4>投稿者：{{ $post->name }}</h4>
 
-            <p>{{ $post->body }}</p>
+            <p>{!! nl2br(e($post->body)) !!}</p>
 
             <div class="post-buttons">
 
-                <form method="POST" action="/posts/{{ $post->id }}">
+                <form 
+                    method="POST" action="/posts/{{ $post->id }}"
+                    onsubmit="return confirm('この投稿を削除しますか？');"
+                >
+                    
                     @csrf
                     @method('DELETE')
 
@@ -104,6 +127,13 @@
             <input type="text" name="title">
 
             @error('title')
+                <p class="error">※{{ $message }}</p>
+            @enderror
+
+            <h3>投稿者名</h3>
+            <input type="text" name="name">
+            
+            @error('name')
                 <p class="error">※{{ $message }}</p>
             @enderror
 
