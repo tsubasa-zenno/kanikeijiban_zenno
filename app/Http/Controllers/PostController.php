@@ -73,6 +73,7 @@ public function update(Request $request, Post $post)
         'title' => $request->title,
         'name' => $request->name,
         'body' => $request->body,
+        'is_edited' => true,
         ]);
 
     return redirect('/posts');

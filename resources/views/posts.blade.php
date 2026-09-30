@@ -19,7 +19,7 @@
             margin-bottom: 40px;
         }
 
-        .post-form h3 span {
+        h3 span {
             font-size: 14px;
             font-weight: normal;
         }
@@ -93,7 +93,13 @@
 
         <div class="post">
 
-            <h3>#{{ $post->id }} {{ $post->title }} </h3>
+            <h3>#{{ $post->id }} {{ $post->title }} 
+
+                @if ($post->is_edited)
+                    <span>(編集済み)</span>
+                @endif
+
+            </h3>
             <h4>投稿者：{{ $post->name }}</h4>
 
             <p>{!! nl2br(e($post->body)) !!}</p>

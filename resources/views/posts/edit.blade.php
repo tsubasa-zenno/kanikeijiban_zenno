@@ -64,6 +64,8 @@
 
     <hr>
 
+    <h2>編集する</h2>
+
     <form method="POST" action="/posts/{{ $post->id }}">
         @csrf
         @method('PUT')
@@ -72,13 +74,6 @@
         <input type="text" name="title" value="{{ $post->title }}">            
             
             @error('title')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-        
-        <h3>投稿者名<span>※20字以内</span></h3>
-        <input type="text" name="name" value="{{ $post->name }}">
-                    
-            @error('name')
                 <p class="error">※{{ $message }}</p>
             @enderror
 
