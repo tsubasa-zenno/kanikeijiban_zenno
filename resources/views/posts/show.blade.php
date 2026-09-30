@@ -60,7 +60,7 @@
             @endif
 
             @if ($post->is_edited)
-                <span>編集日時：{{ $post->updated_at->format('Y年m月d日 H:i') }}</span>
+                <span>最終編集日時：{{ $post->updated_at->format('Y年m月d日 H:i') }}</span>
             @endif
         </h3>
 
