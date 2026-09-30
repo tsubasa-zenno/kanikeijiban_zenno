@@ -5,6 +5,16 @@
     <title>掲示板</title>
 
     <style>
+
+        .top-button {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid #000;
+            background-color: #fff;
+            text-decoration: none;
+        }
+
         body {
             max-width: 800px;
             margin: 0 auto;
@@ -69,6 +79,8 @@
 
 <body>
 
+    <a href="#top" class="top-button">↑ページ上部に戻る</a>
+
     @error('name')
                 <p class="error">※{{ $message }}</p>
             @enderror
@@ -95,11 +107,22 @@
 
             <h3>#{{ $post->id }} {{ $post->title }} 
 
+                <span>投稿日時：{{ $post->created_at->format('Y年m月d日 H:i') }}</span>
+
+            </h3>
+
+            <h3>
                 @if ($post->is_edited)
                     <span>(編集済み)</span>
                 @endif
 
+                @if ($post->is_edited)
+                    <span>編集日時：{{ $post->updated_at->format('Y年m月d日 H:i') }}</span>
+                @endif
             </h3>
+
+            
+
             <h4>投稿者：{{ $post->name }}</h4>
 
             <p>{!! nl2br(e($post->body)) !!}</p>

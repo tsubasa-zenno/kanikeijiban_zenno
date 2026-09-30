@@ -39,10 +39,6 @@
     <h1>投稿編集</h1>
 
     <hr>
-    
-    @error('name')
-        <p class="error">※{{ $message }}</p>
-    @enderror
 
     @error('title')
         <p class="error">※{{ $message }}</p>
@@ -54,13 +50,27 @@
     
     <div class="post">
 
-        <h3>#{{ $post->id }} {{ $post->title }} </h3>
+        <h3>#{{ $post->id }} {{ $post->title }} 
+
+            <span>投稿日時：{{ $post->created_at->format('Y年m月d日 H:i') }}</span>
+
+        </h3>
+
+        <h3>
+            @if ($post->is_edited)
+                <span>(編集済み)</span>
+            @endif
+
+            @if ($post->is_edited)
+                <span>編集日時：{{ $post->updated_at->format('Y年m月d日 H:i') }}</span>
+            @endif
+        </h3>
 
         <h4>投稿者：{{ $post->name }}</h4>
 
         <p>{!! nl2br(e($post->body)) !!}</p>
     
-    </div class="post">
+    </div>
 
     <hr>
 
