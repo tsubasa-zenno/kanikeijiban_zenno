@@ -5,6 +5,23 @@
     <title>投稿編集</title>
 
     <style>
+
+        body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .post {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
         h3 span {
             font-size: 14px;
             font-weight: normal;
@@ -20,6 +37,8 @@
 <body>
 
     <h1>投稿編集</h1>
+
+    <hr>
     
     @error('name')
         <p class="error">※{{ $message }}</p>
@@ -32,6 +51,18 @@
     @error('body')
         <p class="error">※{{ $message }}</p>
     @enderror
+    
+    <div class="post">
+
+        <h3>#{{ $post->id }} {{ $post->title }} </h3>
+
+        <h4>投稿者：{{ $post->name }}</h4>
+
+        <p>{!! nl2br(e($post->body)) !!}</p>
+    
+    </div class="post">
+
+    <hr>
 
     <form method="POST" action="/posts/{{ $post->id }}">
         @csrf
