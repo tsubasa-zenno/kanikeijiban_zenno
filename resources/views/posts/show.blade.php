@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>投稿編集</title>
+    <title>投稿詳細</title>
 
     <style>
 
@@ -27,11 +27,6 @@
             font-weight: normal;
         }
 
-        .error {
-            color: red;
-        }
-
-        .change-button,
         .return-button{
             padding: 5px 12px;
             font-size: 13.3333px;
@@ -47,18 +42,10 @@
 
 <body>
 
-    <h1>投稿編集</h1>
+    <h1>投稿詳細</h1>
 
     <hr>
 
-    @error('title')
-        <p class="error">※{{ $message }}</p>
-    @enderror
-
-    @error('body')
-        <p class="error">※{{ $message }}</p>
-    @enderror
-    
     <div class="post">
 
         <h3>#{{ $post->id }} {{ $post->title }} 
@@ -82,33 +69,6 @@
         <p>{!! nl2br(e($post->body)) !!}</p>
     
     </div>
-
-    <hr>
-
-    <h2>編集する</h2>
-
-    <form method="POST" action="/posts/{{ $post->id }}">
-        @csrf
-        @method('PUT')
-
-        <h3>タイトル<span>※50字以内</span></h3>
-        <input type="text" name="title" value="{{ $post->title }}">            
-            
-            @error('title')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-        <h3>本文<span>※500字以内</span></h3>
-        <textarea name="body">{{ $post->body }}</textarea>
-            
-            @error('body')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-        <br><br>
-
-        <button class="change-button" type="submit">更新する</button>
-    </form>
 
     <br>
 

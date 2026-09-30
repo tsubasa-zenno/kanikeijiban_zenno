@@ -52,6 +52,7 @@
             color: red;
         }
 
+        .show-button,
         .delete-button,
         .edit-button {
             padding: 5px 12px;
@@ -129,6 +130,10 @@
 
             <div class="post-buttons">
 
+                <a class="show-button" href="/posts/{{ $post->id }}/show">詳細</a>
+
+                <a class="edit-button" href="/posts/{{ $post->id }}/edit">編集</a>
+
                 <form 
                     method="POST" action="/posts/{{ $post->id }}"
                     onsubmit="return confirm('この投稿を削除しますか？');"
@@ -139,8 +144,6 @@
 
                     <button class="delete-button" type="submit">削除</button>
                 </form>
-
-                <a class="edit-button" href="/posts/{{ $post->id }}/edit">編集</a>
 
             </div>
 
