@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>掲示板</title>
 
     <style>
@@ -34,6 +35,41 @@
             font-weight: normal;
         }
 
+        .error {
+            color: red;
+        }
+
+        .edit-button:hover {
+            background-color: #e5e5e5;
+        }
+
+        .edit-form {
+            padding: 5px;
+        }
+
+        .edit-title {
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+            padding: 8px;
+        }
+
+        .edit-body {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            box-sizing: border-box;
+            margin-top: 10px;
+            padding: 8px;
+        }
+
+        .edit-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
         .post {
             border: 1px solid #ccc;
             padding: 15px;
@@ -48,13 +84,25 @@
             margin: 5px 0;
         }
 
-        .error {
-            color: red;
+        .post h3 span {
+            font-size: 14px;
+            font-weight: normal;
+            margin-left: 10px;
+        }
+
+        .post-body {
+            white-space: pre-wrap;
+        }
+
+        .post-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
 
         .show-button,
         .delete-button,
-        .edit-button {
+        .edit-button{
             padding: 5px 12px;
             font-size: 13.3333px;
             border: 1px solid #999;
@@ -64,130 +112,16 @@
             text-decoration: none;
         }
 
-        .edit-button:hover {
-            background-color: #e5e5e5;
-        }
-
-        .post-buttons {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            
-    }
-
     </style>
 </head>
 
-<body>
+<body id="top">
+
+    <div id="app" data-posts="{{ json_encode($posts) }}"></div>
 
     <a href="#top" class="top-button">↑ページ上部に戻る</a>
 
-    @error('name')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-    @error('title')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-    @error('body')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-
-
-    <h1>掲示板</h1>
-
-    <hr>
-
-    <h2>投稿一覧</h2>
-
-    @foreach ($posts as $post)
-
-        <div class="post">
-
-            <h3>#{{ $post->id }} {{ $post->title }} 
-
-                <span>投稿日時：{{ $post->created_at->format('Y年m月d日 H:i') }}</span>
-
-            </h3>
-
-            <h3>
-                @if ($post->is_edited)
-                    <span>(編集済み)</span>
-                @endif
-
-                @if ($post->is_edited)
-                    <span>最終編集日時：{{ $post->updated_at->format('Y年m月d日 H:i') }}</span>
-                @endif
-            </h3>
-
-            
-
-            <h4>投稿者：{{ $post->name }}</h4>
-
-            <p>{!! nl2br(e($post->body)) !!}</p>
-
-            <div class="post-buttons">
-
-                <a class="show-button" href="/posts/{{ $post->id }}/show">詳細</a>
-
-                <a class="edit-button" href="/posts/{{ $post->id }}/edit">編集</a>
-
-                <form 
-                    method="POST" action="/posts/{{ $post->id }}"
-                    onsubmit="return confirm('この投稿を削除しますか？');"
-                >
-                    
-                    @csrf
-                    @method('DELETE')
-
-                    <button class="delete-button" type="submit">削除</button>
-                </form>
-
-            </div>
-
-        </div>
-
-    @endforeach
-
-    <hr>
-
-    <div class="post-form">
-
-        <h2>投稿する</h2>
-
-        <form method="POST" action="/posts">
-            @csrf
-
-            <h3>タイトル<span>※50字以内</span></h3>
-            <input type="text" name="title">
-
-            @error('title')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-            <h3>投稿者名<span>※20字以内</span></h3>
-            <input type="text" name="name">
-            
-            @error('name')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-            <h3>本文<span>※500字以内</span></h3>
-            <textarea name="body"></textarea>
-
-            @error('body')
-                <p class="error">※{{ $message }}</p>
-            @enderror
-
-            <br><br>
-
-            <button type="submit">投稿する</button>
-        </form>
-
-    </div>
-
+    @vite('resources/js/app.jsx')
 
 </body>
 </html>

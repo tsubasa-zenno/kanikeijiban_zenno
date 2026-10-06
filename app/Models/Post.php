@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+
     protected $fillable = ['name', 'title', 'body', 'is_edited',];
+
+    protected $casts = [
+    'is_edited' => 'boolean',
+    ];
+
 }

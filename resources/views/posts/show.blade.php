@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>投稿詳細</title>
 
-    <style>
+        <style>
 
         body {
             max-width: 800px;
@@ -16,18 +17,55 @@
             text-align: center;
         }
 
+        h3 span {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .error {
+            color: red;
+        }
+
         .post {
             border: 1px solid #ccc;
             padding: 15px;
             margin-bottom: 15px;
         }
 
-        h3 span {
-            font-size: 14px;
-            font-weight: normal;
+        .post h3 {
+            margin: 5px 0;
         }
 
-        .return-button{
+        .post h4 {
+            margin: 5px 0;
+        }
+
+        .post h3 span {
+            font-size: 14px;
+            font-weight: normal;
+            margin-left: 10px;
+        }
+
+        .post-body {
+            white-space: pre-wrap;
+        }
+
+        .post-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .edit-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .show-button,
+        .delete-button,
+        .edit-button,
+        .return-button {
             padding: 5px 12px;
             font-size: 13.3333px;
             border: 1px solid #999;
@@ -38,41 +76,18 @@
         }
 
     </style>
+
 </head>
 
 <body>
 
-    <h1>投稿詳細</h1>
-
-    <hr>
-
-    <div class="post">
-
-        <h3>#{{ $post->id }} {{ $post->title }} 
-
-            <span>投稿日時：{{ $post->created_at->format('Y年m月d日 H:i') }}</span>
-
-        </h3>
-
-        <h3>
-            @if ($post->is_edited)
-                <span>(編集済み)</span>
-            @endif
-
-            @if ($post->is_edited)
-                <span>最終編集日時：{{ $post->updated_at->format('Y年m月d日 H:i') }}</span>
-            @endif
-        </h3>
-
-        <h4>投稿者：{{ $post->name }}</h4>
-
-        <p>{!! nl2br(e($post->body)) !!}</p>
-    
+    <div
+        id="show-app"
+        data-post="{{ json_encode($post) }}"
+    >
     </div>
 
-    <br>
-
-    <a class="return-button" href="/posts">掲示板に戻る</a>
+    @vite('resources/js/app.jsx')
 
 </body>
 </html>
